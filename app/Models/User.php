@@ -1,0 +1,26 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+
+class User extends Authenticatable
+{
+    use Notifiable;
+
+    protected $fillable = [
+        'username',
+        'password',
+    ];
+
+    protected $hidden = [
+        'password',
+    ];
+
+    // Relasi: Satu user bisa membuat banyak perkara
+    public function perkara()
+    {
+        return $this->hasMany(CaseModel::class, 'dibuat_oleh');
+    }
+}
